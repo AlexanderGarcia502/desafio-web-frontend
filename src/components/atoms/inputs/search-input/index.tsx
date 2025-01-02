@@ -7,6 +7,16 @@ interface ISearchInputProps {
   onChange: (value: string) => void;
 }
 
+const SearchBar = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  backgroundColor: "white",
+  borderRadius: theme.shape.borderRadius,
+  padding: "0 8px",
+  marginLeft: theme.spacing(2),
+  flexGrow: 1,
+}));
+
 const SearchInput = ({ placeholder, onChange }: ISearchInputProps) => {
   const [inputText, setInputText] = useState("");
 
@@ -15,15 +25,6 @@ const SearchInput = ({ placeholder, onChange }: ISearchInputProps) => {
     onChange(event.target.value);
   };
 
-  const SearchBar = styled("div")(({ theme }) => ({
-    display: "flex",
-    alignItems: "center",
-    backgroundColor: "white",
-    borderRadius: theme.shape.borderRadius,
-    padding: "0 8px",
-    marginLeft: theme.spacing(2),
-    flexGrow: 1,
-  }));
   return (
     <SearchBar>
       <InputBase

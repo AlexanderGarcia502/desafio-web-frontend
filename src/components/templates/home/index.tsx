@@ -5,10 +5,8 @@ import ProductList from "../../organisms/products-list";
 import React from "react";
 import { IHomeTemplateChildrenProps, IHomeTemplateProps } from "./interface";
 
-
-const HomeTemplate: React.FC<IHomeTemplateProps> & IHomeTemplateChildrenProps = ({
-  children,
-}) => {
+const HomeTemplate: React.FC<IHomeTemplateProps> &
+  IHomeTemplateChildrenProps = ({ children }) => {
   return (
     <>
       <Navbar>

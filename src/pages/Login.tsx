@@ -1,7 +1,7 @@
-import HomeTemplate from "../components/templates/home";
+import LoginTemplate from "../components/templates/login";
 
 const LoginPage = () => {
-  return <>Login Page</>;
+  return <LoginTemplate onSubmit={() => {}} />;
 };
 
 export default LoginPage;
