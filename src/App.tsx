@@ -16,19 +16,14 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
 
             <Route
-              element={
-                <ProtectedRoute allowedRoles={["Cliente"]} redirectPath="/" />
-              }
+              element={<ProtectedRoute allowedRoles={["Usuario Comercial"]} />}
             >
               <Route path="/" element={<HomePage />} />
             </Route>
 
             <Route
               element={
-                <ProtectedRoute
-                  allowedRoles={["Administrador", "Operador"]}
-                  redirectPath="/management"
-                />
+                <ProtectedRoute allowedRoles={["Administrador", "Operador"]} />
               }
             >
               <Route path="/management" element={<OperatorPage />} />
