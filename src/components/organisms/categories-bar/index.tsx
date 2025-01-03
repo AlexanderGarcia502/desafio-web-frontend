@@ -1,29 +1,14 @@
-import { useRef } from "react";
-import { Box, Icon, IconButton } from "@mui/material";
-import {
-  LocalDining,
-  CleaningServices,
-  Pets,
-  HealthAndSafety,
-  Icecream,
-  ArrowBackIos,
-  ArrowForwardIos,
-} from "@mui/icons-material";
-import IconButtonWithText from "../../molecules/Icon-button-with-text";
-import CategoryIcon from '@mui/icons-material/Category';
+import React, { useCallback, useRef, useState } from "react";
+import { Box, IconButton } from "@mui/material";
+import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
+import { ICategoriesBarProps, TCategoryInfo } from "./interface";
+import RoundedButton from "../../atoms/buttons";
 
-const categories = [
-  { icon: <CategoryIcon fontSize="large" />, label: "Alimentos y Bebidas" },
-  {
-    icon: <CategoryIcon fontSize="large" />,
-    label: "Productos de Limpieza",
-  },
-  { icon: <CategoryIcon fontSize="large" />, label: "Cuidado de Mascotas" },
-  { icon: <CategoryIcon fontSize="large" />, label: "Farmacia y Salud" },
-  { icon: <CategoryIcon fontSize="large" />, label: "Alimentos Congelados" },
-];
-
-export default function CategoriesCarousel() {
+const CategoriesCarousel: React.FC<ICategoriesBarProps> = ({
+  categories,
+  onChangeCategory,
+}) => {
+  const [categoryIndex, setCategoryIndex] = useState<number>(0);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const scroll = (direction: "left" | "right") => {
@@ -35,6 +20,14 @@ export default function CategoriesCarousel() {
       });
     }
   };
+
+  const handleButtonClick = useCallback(
+    (category: TCategoryInfo, index: number) => {
+      setCategoryIndex(index);
+      onChangeCategory && onChangeCategory(category);
+    },
+    []
+  );
 
   return (
     <Box
@@ -65,18 +58,11 @@ export default function CategoriesCarousel() {
         }}
       >
         {categories.map((category, index) => (
-          <IconButtonWithText
-            key={index}
-            icon={category.icon}
-            text={category.label}
-            variantText="body2"
-            sxText={{ marginTop: 1 }}
-            sx={{
-              flex: "0 0 auto",
-              textAlign: "center",
-              width: { xs: 80, md: 120 },
-              cursor: "pointer",
-            }}
+          <RoundedButton
+            key={`category-${index}`}
+            title={category.nombre}
+            isSelected={index === categoryIndex}
+            onClick={() => handleButtonClick(category, index)}
           />
         ))}
       </Box>
@@ -86,4 +72,6 @@ export default function CategoriesCarousel() {
       </IconButton>
     </Box>
   );
-}
+};
+
+export default CategoriesCarousel;

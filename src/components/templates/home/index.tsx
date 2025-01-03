@@ -4,6 +4,7 @@ import { AccountCircle, History } from "@mui/icons-material";
 import ProductList from "../../organisms/products-list";
 import React from "react";
 import { IHomeTemplateChildrenProps, IHomeTemplateProps } from "./interface";
+import { Stack } from "@mui/material";
 
 const HomeTemplate: React.FC<IHomeTemplateProps> &
   IHomeTemplateChildrenProps = ({ children }) => {
@@ -32,13 +33,13 @@ const HomeTemplate: React.FC<IHomeTemplateProps> &
         />
       </Navbar>
       <div style={{ maxWidth: 1400, margin: "0 auto" }}>
-        <CategoriesBar />
-        {children}
+        <Stack rowGap={2}>{children}</Stack>
       </div>
     </>
   );
 };
 
 HomeTemplate.ProductList = ProductList;
+HomeTemplate.CategoryList = CategoriesBar;
 
 export default HomeTemplate;

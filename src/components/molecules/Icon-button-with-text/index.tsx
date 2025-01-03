@@ -1,4 +1,4 @@
-import { Box, IconButton, Typography } from "@mui/material";
+import { Box, IconButton, Typography, useTheme } from "@mui/material";
 
 interface IIconButtonWithTextProps {
   icon: React.ReactNode;
@@ -33,10 +33,15 @@ const IconButtonWithText = ({
   iconColor = "inherit",
   sxText,
 }: IIconButtonWithTextProps) => {
+  const theme = useTheme();
   return (
     <Box onClick={onClick} sx={sx}>
       <IconButton color={iconColor}>{icon}</IconButton>
-      <Typography variant={variantText} sx={sxText}>
+      <Typography
+        color={theme.palette.text.secondary}
+        variant={variantText}
+        sx={sxText}
+      >
         {text}
       </Typography>
     </Box>

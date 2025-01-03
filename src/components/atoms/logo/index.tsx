@@ -1,4 +1,4 @@
-import { SxProps, Theme, Typography } from "@mui/material";
+import { SxProps, Theme, Typography, useTheme } from "@mui/material";
 
 interface ILogoProps {
   sx: SxProps<Theme> | undefined;
@@ -18,9 +18,11 @@ interface ILogoProps {
 }
 
 const Logo = ({ sx, variant = "h6" }: ILogoProps) => {
+  const theme = useTheme();
   return (
     <Typography
       variant={variant}
+      color={theme.palette.text.secondary}
       sx={{
         fontWeight: "bold",
         fontStyle: "italic",
