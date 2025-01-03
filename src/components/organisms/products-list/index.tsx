@@ -6,8 +6,8 @@ import { IProductsListProps } from "./interface";
     return (
     <div >
 
-    {products.map((product)=>{
-        return <ProductCard {...product} onClick={()=>{}}/>
+    {products.map((product,index)=>{
+        return <ProductCard key={index} {...product} onClick={()=>{}}/>
     })}
     </div>
     );
