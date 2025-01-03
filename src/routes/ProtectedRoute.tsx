@@ -1,5 +1,6 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
+import { getInitialRouteByRole } from "../utils/getInitialRouteByRole";
 
 interface ProtectedRouteProps {
   allowedRoles?: string[];
@@ -15,12 +16,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles }) => {
 
   if (allowedRoles && !allowedRoles.includes(user.rol)) {
     const { rol } = user;
-    return (
-      <Navigate
-        to={rol === "Administrador" || rol === "Operador" ? "/management" : "/"}
-        replace
-      />
-    );
+    return <Navigate to={getInitialRouteByRole(rol)} replace />;
   }
 
   return <Outlet />;

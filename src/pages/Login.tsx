@@ -3,6 +3,7 @@ import LoginTemplate from "../components/templates/login";
 import { UserServices } from "../services/user-services";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
+import { getInitialRouteByRole } from "../utils/getInitialRouteByRole";
 
 interface ILoginProps {
   email: string;
@@ -18,13 +19,9 @@ const LoginPage = () => {
     const user = JSON.parse(localStorage.getItem("user") || "{}");
 
     if (token && user && user.rol) {
-      if (user.rol === "Administrador" || user.rol === "Operador") {
-        navigate("/management");
-      } else {
-        navigate("/");
-      }
+      getInitialRouteByRole(user.rol);
     }
-  }, [navigate]);
+  }, []);
 
   const { mutate: login } = useMutation({
     mutationFn: async ({ email, password }: ILoginProps) => {

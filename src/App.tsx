@@ -1,9 +1,5 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import HomePage from "./pages/Home";
-import LoginPage from "./pages/Login";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import OperatorPage from "./pages/Operator";
-import ProtectedRoute from "./routes/ProtectedRoute";
+import AppRouter from "./routes/AppRouter";
 
 function App() {
   const queryClient = new QueryClient();
@@ -11,25 +7,7 @@ function App() {
   return (
     <div style={{ height: "100vh" }}>
       <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/login" element={<LoginPage />} />
-
-            <Route
-              element={<ProtectedRoute allowedRoles={["Usuario Comercial"]} />}
-            >
-              <Route path="/" element={<HomePage />} />
-            </Route>
-
-            <Route
-              element={
-                <ProtectedRoute allowedRoles={["Administrador", "Operador"]} />
-              }
-            >
-              <Route path="/management" element={<OperatorPage />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
+        <AppRouter />
       </QueryClientProvider>
     </div>
   );
