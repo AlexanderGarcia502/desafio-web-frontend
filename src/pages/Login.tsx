@@ -2,8 +2,9 @@ import { useMutation } from "@tanstack/react-query";
 import LoginTemplate from "../components/templates/login";
 import { UserServices } from "../services/user-services";
 import { useNavigate } from "react-router";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { getInitialRouteByRole } from "../utils/getInitialRouteByRole";
+import { NotificationContext } from "../context/notification";
 
 interface ILoginProps {
   email: string;
@@ -12,6 +13,7 @@ interface ILoginProps {
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const { setOpenNotification } = useContext(NotificationContext);
   const userServices = new UserServices();
 
   useEffect(() => {
@@ -36,7 +38,7 @@ const LoginPage = () => {
       else navigate("/");
     },
     onError: (err) => {
-      console.error("Error al iniciar sesión:", err.message);
+      setOpenNotification(err.message, "error");
     },
   });
 
