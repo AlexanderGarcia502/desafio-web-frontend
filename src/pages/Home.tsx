@@ -5,6 +5,7 @@ import { ProductServices } from "../services/product-services";
 import { useState } from "react";
 import { IProduct } from "../interfaces/models/product";
 import { TCategoryInfo } from "../components/organisms/categories-bar/interface";
+import { useCart } from "../hooks/useCart";
 
 const HomePage = () => {
   const categoryServices = new CategoryServices();
@@ -13,6 +14,9 @@ const HomePage = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [selectedCategory, setSelectedCategory] = useState<number>(0);
   const [searchTerm, setSearchTerm] = useState<string>("");
+
+  const { cart, addToCart, removeFromCart, decrementQuantity, clearCart } =
+    useCart();
 
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -69,6 +73,8 @@ const HomePage = () => {
   };
   return (
     <HomeTemplate
+      cartList={cart}
+      cartActions={{ addToCart, removeFromCart, decrementQuantity, clearCart }}
       onClickCategory={() => {}}
       onChangeSearchInput={handleSearchInputChange}
     >
@@ -76,7 +82,8 @@ const HomePage = () => {
         categories={allCategories}
         onChangeCategory={handleCategoryChange}
       />
-      <HomeTemplate.ProductList products={currentItems} />
+
+      <HomeTemplate.ProductList products={currentItems} addToCart={addToCart} />
       <HomeTemplate.Pagination
         count={Math.ceil(products.length / itemsPerPage)}
         currentPage={currentPage}

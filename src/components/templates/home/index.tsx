@@ -5,12 +5,24 @@ import ProductList from "../../organisms/products-list";
 import { IHomeTemplateChildrenProps, IHomeTemplateProps } from "./interface";
 import { Stack } from "@mui/material";
 import PaginationBar from "../../molecules/pagination";
+import { useState } from "react";
+import { CartDrawer } from "../../organisms/cart-drawer";
 
 const HomeTemplate: React.FC<IHomeTemplateProps> &
-  IHomeTemplateChildrenProps = ({ children, onChangeSearchInput }) => {
+  IHomeTemplateChildrenProps = ({
+  children,
+  cartList,
+  onChangeSearchInput,
+  cartActions,
+}) => {
+  const [openCartDrawer, setOpenCartDrawer] = useState(false);
+
   return (
     <>
-      <Navbar onChangeSearchInput={onChangeSearchInput}>
+      <Navbar
+        onChangeSearchInput={onChangeSearchInput}
+        onClickCartButton={() => setOpenCartDrawer(true)}
+      >
         <Navbar.item
           text="Mi cuenta"
           icon={<AccountCircle />}
@@ -32,6 +44,12 @@ const HomeTemplate: React.FC<IHomeTemplateProps> &
           }}
         />
       </Navbar>
+      <CartDrawer
+        cartList={cartList}
+        cartActions={cartActions}
+        open={openCartDrawer}
+        onClose={() => setOpenCartDrawer(!openCartDrawer)}
+      />
       <div style={{ maxWidth: 1400, margin: "0 auto" }}>
         <Stack rowGap={2}>{children}</Stack>
       </div>

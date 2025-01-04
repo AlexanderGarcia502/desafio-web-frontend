@@ -3,7 +3,6 @@ import "@fontsource/roboto/900-italic.css";
 import {
   AppBar,
   Toolbar,
-  Typography,
   IconButton,
   Box,
   Drawer,
@@ -25,29 +24,29 @@ import { useTheme } from "@mui/material/styles";
 import Logo from "../../atoms/logo";
 import SearchInput from "../../atoms/inputs/search-input";
 import IconButtonWithText from "../../molecules/Icon-button-with-text";
+import { useCart } from "../../../hooks/useCart";
 
 interface INavbarProps {
   children?: React.ReactNode;
   onChangeSearchInput: (value: string) => void;
+  onClickCartButton: () => void;
 }
 
 export default function Navbar({
   children,
   onChangeSearchInput,
+  onClickCartButton,
 }: INavbarProps) {
   const theme = useTheme();
 
   const [openMenuDrawer, setOpenMenuDrawer] = useState(false);
-  const [openCartDrawer, setOpenCartDrawer] = useState(false);
+
+  const { cart, getTotal } = useCart();
 
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const toggleMenuDrawer = () => {
     setOpenMenuDrawer(!openMenuDrawer);
-  };
-
-  const toggleCartDrawer = () => {
-    setOpenCartDrawer(!openCartDrawer);
   };
 
   return (
@@ -90,9 +89,9 @@ export default function Navbar({
               {children}
             </Box>
             <IconButtonWithText
-              onClick={toggleCartDrawer}
+              onClick={onClickCartButton}
               icon={<ShoppingCart />}
-              text={isMobile ? "1" : "Q 0.00"}
+              text={isMobile ? `${cart.length}` : `Q${getTotal()}`}
               variantText="body1"
               sx={{
                 display: "flex",
@@ -146,41 +145,6 @@ export default function Navbar({
               <ListItemText primary="Historial" />
             </ListItemButton>
           </List>
-        </Box>
-      </Drawer>
-      <Drawer anchor="right" open={openCartDrawer} onClose={toggleCartDrawer}>
-        <Box
-          sx={{ width: 250 }}
-          role="presentation"
-          onClick={toggleCartDrawer}
-          onKeyDown={toggleCartDrawer}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              p: 1,
-            }}
-          >
-            <IconButton onClick={toggleCartDrawer}>
-              <Close />
-            </IconButton>
-            <Typography
-              variant="h6"
-              sx={{
-                fontWeight: "bold",
-                fontStyle: "italic",
-                fontFamily: "'Roboto', sans-serif",
-                color: "primary.main",
-                paddingRight: 2,
-              }}
-            >
-              Mi Carrito
-            </Typography>
-          </Box>
-          <Divider />
-          <List component="nav"></List>
         </Box>
       </Drawer>
     </>

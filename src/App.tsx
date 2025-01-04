@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import AppRouter from "./routes/AppRouter";
 import { NotificationProvider } from "./context/notification";
+import { CartProvider } from "./context/cart";
+import AppRouter from "./routes/AppRouter";
 
 function App() {
   const queryClient = new QueryClient();
@@ -8,7 +9,9 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <NotificationProvider>
-        <AppRouter />
+        <CartProvider>
+          <AppRouter />
+        </CartProvider>
       </NotificationProvider>
     </QueryClientProvider>
   );

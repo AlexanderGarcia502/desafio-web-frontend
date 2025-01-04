@@ -4,6 +4,7 @@ export const theme = createTheme({
   typography: {
     allVariants: {
       color: "#394759",
+      lightingColor: "#ffffff",
     },
   },
   palette: {
