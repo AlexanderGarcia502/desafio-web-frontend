@@ -1,22 +1,30 @@
+import { useQuery } from "@tanstack/react-query";
 import HomeTemplate from "../components/templates/home";
-import { TCategoryInfo } from "../components/templates/home/interface";
-const categories: TCategoryInfo[] = [
-  { idCategoriaProductos: 1, nombre: "Todos" },
-  { idCategoriaProductos: 1, nombre: "Alimentos y Bebidas" },
-  {
-    idCategoriaProductos: 1,
-    nombre: "Productos de Limpieza",
-  },
-  { idCategoriaProductos: 1, nombre: "Cuidado de Mascotas" },
-  { idCategoriaProductos: 1, nombre: "Farmacia y Salud" },
-  { idCategoriaProductos: 1, nombre: "Alimentos Congelados" },
-];
+import { CategoryServices } from "../services/category-services";
+
 const HomePage = () => {
+  const categoryServices = new CategoryServices();
+
+  const { data: categories = [] } = useQuery({
+    queryKey: ["categories"],
+    queryFn: async () => {
+      const response = await categoryServices.getAllCategories();
+      return response;
+    },
+  });
+
+  const allCategories = [
+    { idCategoriaProductos: 0, nombre: "Todos" },
+    ...categories,
+  ];
+
   return (
-    <HomeTemplate categories={categories} onClickCategory={() => {}}>
+    <HomeTemplate categories={[]} onClickCategory={() => {}}>
       <HomeTemplate.CategoryList
-        categories={categories}
-        onChangeCategory={() => {}}
+        categories={allCategories}
+        onChangeCategory={(props) => {
+          console.log("first: ", props);
+        }}
       />
       <HomeTemplate.ProductList
         products={[{ nombre: "Jabon", precio: 2.54 }]}
