@@ -4,4 +4,5 @@ export interface IProduct {
   precio: number;
   stock: number;
   foto: string;
+  categoriaProductos_idCategoriaProductos: number;
 }

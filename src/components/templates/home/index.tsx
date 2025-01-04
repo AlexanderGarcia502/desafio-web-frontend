@@ -7,10 +7,10 @@ import { Stack } from "@mui/material";
 import PaginationBar from "../../molecules/pagination";
 
 const HomeTemplate: React.FC<IHomeTemplateProps> &
-  IHomeTemplateChildrenProps = ({ children }) => {
+  IHomeTemplateChildrenProps = ({ children, onChangeSearchInput }) => {
   return (
     <>
-      <Navbar>
+      <Navbar onChangeSearchInput={onChangeSearchInput}>
         <Navbar.item
           text="Mi cuenta"
           icon={<AccountCircle />}

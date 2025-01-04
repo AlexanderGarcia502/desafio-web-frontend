@@ -7,6 +7,7 @@ import { IPaginationProps } from "../../molecules/pagination/interface";
 export type TCategoryInfo = Pick<ICategory, "idCategoriaProductos" | "nombre">;
 export interface IHomeTemplateProps {
   onClickCategory?: (props: TCategoryInfo) => void;
+  onChangeSearchInput: (value: string) => void;
   children?: React.ReactNode;
 }
 export interface IHomeTemplateChildrenProps {

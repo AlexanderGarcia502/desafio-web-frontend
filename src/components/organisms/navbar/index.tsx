@@ -28,9 +28,13 @@ import IconButtonWithText from "../../molecules/Icon-button-with-text";
 
 interface INavbarProps {
   children?: React.ReactNode;
+  onChangeSearchInput: (value: string) => void;
 }
 
-export default function Navbar({ children }: INavbarProps) {
+export default function Navbar({
+  children,
+  onChangeSearchInput,
+}: INavbarProps) {
   const theme = useTheme();
 
   const [openMenuDrawer, setOpenMenuDrawer] = useState(false);
@@ -74,7 +78,7 @@ export default function Navbar({ children }: INavbarProps) {
 
             <SearchInput
               placeholder="Buscar producto"
-              onChange={(value) => console.log(value)}
+              onChange={onChangeSearchInput}
             />
             <Box
               sx={{
