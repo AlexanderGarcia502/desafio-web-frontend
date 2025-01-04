@@ -10,7 +10,12 @@ import { ShoppingCart } from "@mui/icons-material";
 import bananaImg from "../../../assets/banana.webp";
 import { IProductCardProps } from "./interface";
 
-export default function ProductCard({nombre, precio, onClick}: IProductCardProps) {
+export default function ProductCard({
+  nombre,
+  precio,
+  foto,
+  onClick,
+}: IProductCardProps) {
   return (
     <Card
       sx={{
@@ -37,7 +42,7 @@ export default function ProductCard({nombre, precio, onClick}: IProductCardProps
 
       <CardContent>
         <Typography variant="h6" fontWeight="bold">
-         {nombre}
+          {nombre}
         </Typography>
         <Typography variant="h6" fontWeight="bold">
           Q {precio}

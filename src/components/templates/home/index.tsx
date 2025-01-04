@@ -2,9 +2,9 @@ import Navbar from "../../organisms/navbar";
 import CategoriesBar from "../../organisms/categories-bar";
 import { AccountCircle, History } from "@mui/icons-material";
 import ProductList from "../../organisms/products-list";
-import React from "react";
 import { IHomeTemplateChildrenProps, IHomeTemplateProps } from "./interface";
 import { Stack } from "@mui/material";
+import PaginationBar from "../../molecules/pagination";
 
 const HomeTemplate: React.FC<IHomeTemplateProps> &
   IHomeTemplateChildrenProps = ({ children }) => {
@@ -41,5 +41,6 @@ const HomeTemplate: React.FC<IHomeTemplateProps> &
 
 HomeTemplate.ProductList = ProductList;
 HomeTemplate.CategoryList = CategoriesBar;
+HomeTemplate.Pagination = PaginationBar;
 
 export default HomeTemplate;

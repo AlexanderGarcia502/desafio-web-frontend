@@ -6,13 +6,11 @@ function App() {
   const queryClient = new QueryClient();
 
   return (
-    <div style={{ height: "100vh" }}>
-      <QueryClientProvider client={queryClient}>
-        <NotificationProvider>
-          <AppRouter />
-        </NotificationProvider>
-      </QueryClientProvider>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <NotificationProvider>
+        <AppRouter />
+      </NotificationProvider>
+    </QueryClientProvider>
   );
 }
 
