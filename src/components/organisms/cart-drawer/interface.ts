@@ -9,8 +9,10 @@ export interface ICartActions {
 }
 
 export interface ICartDrawerProps {
-  open: boolean;
   onClose: () => void;
+  onSendOrder: () => void;
+  open: boolean;
   cartList: IProductItem[];
   cartActions: Omit<ICartActions, "getTotal">;
+  totalPurchases: number;
 }

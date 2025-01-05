@@ -10,8 +10,10 @@ export type TCategoryInfo = Pick<ICategory, "idCategoriaProductos" | "nombre">;
 export interface IHomeTemplateProps {
   onClickCategory?: (props: TCategoryInfo) => void;
   onChangeSearchInput: (value: string) => void;
+  onSendOrder: () => void;
   cartActions: Omit<ICartActions, "getTotal">;
   cartList: IProductItem[];
+  totalPurchases: number;
   children?: React.ReactNode;
 }
 export interface IHomeTemplateChildrenProps {

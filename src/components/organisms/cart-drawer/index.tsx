@@ -18,12 +18,18 @@ export const CartDrawer = ({
   cartList,
   onClose,
   cartActions,
+  totalPurchases,
+  onSendOrder,
 }: ICartDrawerProps) => {
   const { addToCart, removeFromCart, decrementQuantity, clearCart } =
     cartActions;
   return (
     <Drawer anchor="right" open={open} onClose={onClose}>
-      <Box sx={{ width: 350 }} role="presentation" onKeyDown={onClose}>
+      <Box
+        sx={{ width: 350, height: "93%" }}
+        role="presentation"
+        onKeyDown={onClose}
+      >
         <Box
           sx={{
             display: "flex",
@@ -75,31 +81,84 @@ export const CartDrawer = ({
           </Stack>
         </Box>
         <Divider />
-        <List component="nav">
-          {cartList.map((product: IProductItem) => {
-            const { idProduct, title, price, quantity } = product;
-            return (
-              <ProductItem
-                key={idProduct}
-                image={bananaImage}
-                title={title}
-                price={price}
-                quantity={quantity}
-                onIncrease={() =>
-                  addToCart({
-                    idProduct,
-                    image: bananaImage,
-                    title,
-                    price,
-                    quantity,
-                  })
-                }
-                onDecrease={() => decrementQuantity(idProduct)}
-                onRemove={() => removeFromCart(idProduct)}
-              />
-            );
-          })}
-        </List>
+        <Stack
+          direction="column"
+          justifyContent="space-between"
+          sx={{
+            height: "100%",
+            overflow: "hidden",
+          }}
+        >
+          <List
+            component="nav"
+            sx={{
+              flex: 1,
+              overflowY: "auto",
+            }}
+          >
+            {cartList.map((product: IProductItem) => {
+              const { idProduct, title, price, quantity, image } = product;
+              return (
+                <ProductItem
+                  key={idProduct}
+                  image={image}
+                  title={title}
+                  price={price}
+                  quantity={quantity}
+                  onIncrease={() =>
+                    addToCart({
+                      idProduct,
+                      image: bananaImage,
+                      title,
+                      price,
+                      quantity,
+                    })
+                  }
+                  onDecrease={() => decrementQuantity(idProduct)}
+                  onRemove={() => removeFromCart(idProduct)}
+                />
+              );
+            })}
+          </List>
+          <Stack>
+            <Stack
+              paddingX={3}
+              paddingY={1}
+              direction="row"
+              justifyContent="space-between"
+            >
+              <Typography variant="h6" color="text.primary">
+                Total:
+              </Typography>
+              <Typography variant="h6" color="text.primary">
+                {`Q ${totalPurchases ? totalPurchases : 0.0}`}
+              </Typography>
+            </Stack>
+            <Stack
+              onClick={onSendOrder}
+              padding={1}
+              marginX={2}
+              marginBottom={2}
+              alignItems="center"
+              sx={{
+                backgroundColor: "primary.main",
+                cursor: "pointer",
+                transition: "transform 0.1s ease, background-color 0.2s ease",
+                "&:hover": {
+                  backgroundColor: "primary.dark",
+                },
+                "&:active": {
+                  transform: "scale(0.95)",
+                  backgroundColor: "primary.light",
+                },
+              }}
+            >
+              <Typography fontWeight="bold" color="text.secondary">
+                Enviar Orden
+              </Typography>
+            </Stack>
+          </Stack>
+        </Stack>
       </Box>
     </Drawer>
   );

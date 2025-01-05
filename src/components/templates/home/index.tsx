@@ -14,6 +14,8 @@ const HomeTemplate: React.FC<IHomeTemplateProps> &
   cartList,
   onChangeSearchInput,
   cartActions,
+  totalPurchases,
+  onSendOrder,
 }) => {
   const [openCartDrawer, setOpenCartDrawer] = useState(false);
 
@@ -45,10 +47,12 @@ const HomeTemplate: React.FC<IHomeTemplateProps> &
         />
       </Navbar>
       <CartDrawer
+        totalPurchases={totalPurchases}
         cartList={cartList}
         cartActions={cartActions}
         open={openCartDrawer}
         onClose={() => setOpenCartDrawer(!openCartDrawer)}
+        onSendOrder={onSendOrder}
       />
       <div style={{ maxWidth: 1400, margin: "0 auto" }}>
         <Stack rowGap={2}>{children}</Stack>

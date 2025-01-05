@@ -7,7 +7,6 @@ import {
   Box,
 } from "@mui/material";
 import { ShoppingCart } from "@mui/icons-material";
-import bananaImg from "../../../assets/banana.webp";
 import { IProductCardProps } from "./interface";
 
 export default function ProductCard({
@@ -29,7 +28,7 @@ export default function ProductCard({
       {/* Imagen del producto */}
       <CardMedia
         component="img"
-        image={bananaImg}
+        image={foto}
         alt="Banano"
         sx={{
           paddingTop: "35px",
