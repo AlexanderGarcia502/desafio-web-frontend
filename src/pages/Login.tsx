@@ -21,7 +21,7 @@ const LoginPage = () => {
     const user = JSON.parse(localStorage.getItem("user") || "{}");
 
     if (token && user && user.rol) {
-      getInitialRouteByRole(user.rol);
+      navigate(getInitialRouteByRole(user.rol));
     }
   }, []);
 
