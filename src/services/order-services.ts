@@ -3,6 +3,7 @@ import {
   ICreateOrderProps,
   IOrderServicesProps,
 } from "./interfaces/order-interface";
+import { handleError } from "../utils/handleError";
 
 export class OrderServices implements IOrderServicesProps {
   async create({
@@ -25,9 +26,8 @@ export class OrderServices implements IOrderServicesProps {
         productsDetails,
       });
       return data.data;
-    } catch (error) {
-      console.error("Error fetching order:", error);
-      throw new Error("Failed to fetch order");
+    } catch (error: any) {
+      throw new Error(handleError(error));
     }
   }
 }

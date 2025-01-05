@@ -1,3 +1,4 @@
+import { IOrderFormInputs } from "../../molecules/order-form-modal/interface";
 import { IProductItem } from "../../molecules/product-item/interface";
 
 export interface ICartActions {
@@ -10,7 +11,7 @@ export interface ICartActions {
 
 export interface ICartDrawerProps {
   onClose: () => void;
-  onSendOrder: () => void;
+  onSendOrder: (orderFormInputs: IOrderFormInputs) => void;
   open: boolean;
   cartList: IProductItem[];
   cartActions: Omit<ICartActions, "getTotal">;

@@ -4,7 +4,6 @@ import { AccountCircle, History } from "@mui/icons-material";
 import ProductList from "../../organisms/products-list";
 import { IHomeTemplateChildrenProps, IHomeTemplateProps } from "./interface";
 import { Stack } from "@mui/material";
-import PaginationBar from "../../molecules/pagination";
 import { useState } from "react";
 import { CartDrawer } from "../../organisms/cart-drawer";
 
@@ -63,6 +62,5 @@ const HomeTemplate: React.FC<IHomeTemplateProps> &
 
 HomeTemplate.ProductList = ProductList;
 HomeTemplate.CategoryList = CategoriesBar;
-HomeTemplate.Pagination = PaginationBar;
 
 export default HomeTemplate;
