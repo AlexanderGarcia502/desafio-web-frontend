@@ -3,6 +3,7 @@ import LoginPage from "../pages/Login";
 import ProtectedRoute from "./ProtectedRoute";
 import HomePage from "../pages/Home";
 import OperatorPage from "../pages/Operator";
+import ManagmentLayout from "../components/layouts/ManagmentLayout";
 
 const AppRouter = () => {
   return (
@@ -17,11 +18,13 @@ const AppRouter = () => {
         </Route>
 
         <Route
+          path="/management"
           element={
-            <ProtectedRoute allowedRoles={["Administrador", "Operador"]} />
+            <ManagmentLayout allowedRoles={["Administrador", "Operador"]} />
           }
         >
-          <Route path="/management" element={<OperatorPage />} />
+          <Route index element={<OperatorPage />} />
+          <Route path="profile" element={<div>Profile</div>} />
         </Route>
       </Routes>
     </BrowserRouter>

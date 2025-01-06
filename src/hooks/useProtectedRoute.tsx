@@ -1,13 +1,8 @@
-import React from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate } from "react-router";
 import { getInitialRouteByRole } from "../utils/getInitialRouteByRole";
 import { isAuthenticated } from "../utils/isAuthenticated";
 
-interface ProtectedRouteProps {
-  allowedRoles?: string[];
-}
-
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles }) => {
+export const useProtectedRoute = (allowedRoles?: string[]) => {
   const token = localStorage.getItem("token");
   const user = JSON.parse(localStorage.getItem("user") || "{}");
 
@@ -22,11 +17,5 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles }) => {
   if (!isAuthenticated()) {
     return <Navigate to="/login" replace />;
   }
-  return (
-    <div>
-      <Outlet />
-    </div>
-  );
+  return { token, user };
 };
-
-export default ProtectedRoute;
