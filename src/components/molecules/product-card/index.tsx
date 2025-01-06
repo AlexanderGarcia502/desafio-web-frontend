@@ -13,12 +13,13 @@ export default function ProductCard({
   nombre,
   precio,
   foto,
+  stock,
   onClick,
 }: IProductCardProps) {
   return (
     <Card
       sx={{
-        maxWidth: 223,
+        width: { xs: 150, sm: 223 },
         maxHeight: 409,
         border: "1px solid #e0e0e0",
         borderRadius: 1,
@@ -33,32 +34,40 @@ export default function ProductCard({
         sx={{
           paddingTop: "35px",
           height: 140,
-          width: 140,
+          width: { xs: 100, sm: 140 },
           objectFit: "cover",
           margin: "0 auto",
         }}
       />
 
       <CardContent>
-        <Typography variant="h6" fontWeight="bold">
+        <Typography variant="body1" fontWeight="bold">
           {nombre}
         </Typography>
-        <Typography variant="h6" fontWeight="bold">
+        <Typography variant="inherit" fontWeight="bold">
           Q {precio}
         </Typography>
       </CardContent>
 
-      <Box sx={{ textAlign: "center", mb: 2 }}>
-        <Button
-          variant="contained"
-          color="primary"
-          startIcon={<ShoppingCart />}
-          onClick={onClick}
-          sx={{ textTransform: "none" }}
-        >
-          Añadir
-        </Button>
-      </Box>
+      {stock < 1 ? (
+        <Box display="flex" justifyContent="center">
+          <Typography variant="body1" fontWeight="bold" color="red">
+            No disponible
+          </Typography>
+        </Box>
+      ) : (
+        <Box sx={{ textAlign: "center", mb: 2 }}>
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<ShoppingCart />}
+            onClick={onClick}
+            sx={{ textTransform: "none" }}
+          >
+            Añadir
+          </Button>
+        </Box>
+      )}
     </Card>
   );
 }

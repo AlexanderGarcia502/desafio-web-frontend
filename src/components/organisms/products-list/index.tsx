@@ -23,20 +23,21 @@ export default function ProductList({
   return (
     <Stack>
       <Stack
-        justifyContent={{ xs: "space-around", md: "flex-start" }}
-        flexDirection={"row"}
-        flexWrap={"wrap"}
-        rowGap={2}
-        spacing={2}
-        useFlexGap
+        display="flex"
+        direction="row"
+        flexWrap="wrap"
+        gap={2}
+        padding={2}
+        justifyContent={"flex-start"}
       >
         {currentItems.map((product) => {
-          const { idProductos, nombre, precio, foto } = product;
+          const { idProductos, nombre, precio, foto, stock } = product;
           return (
             <ProductCard
               key={idProductos}
               foto={foto}
               nombre={nombre}
+              stock={stock}
               precio={precio}
               onClick={() =>
                 addToCart({
