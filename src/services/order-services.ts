@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../axios";
 import {
   ICreateOrderProps,
   IOrderServicesProps,
@@ -16,7 +16,7 @@ export class OrderServices implements IOrderServicesProps {
     productsDetails,
   }: ICreateOrderProps) {
     try {
-      const { data } = await axios.post("http://localhost:7000/api/order/", {
+      const { data } = await api.post("/order/", {
         usuarios_idUsuarios,
         nombre_completo,
         direccion,

@@ -1,11 +1,9 @@
-import axios from "axios";
+import api from "../axios";
 
 export class ProductServices {
   async getAllProducts() {
     try {
-      const { data } = await axios.get(
-        "http://localhost:7000/api/product/getAll"
-      );
+      const { data } = await api.get("/product/getAll");
       return data.data;
     } catch (error) {
       console.error("Error fetching products:", error);

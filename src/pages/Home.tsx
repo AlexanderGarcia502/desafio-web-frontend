@@ -2,7 +2,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import HomeTemplate from "../components/templates/home";
 import { CategoryServices } from "../services/category-services";
 import { ProductServices } from "../services/product-services";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { TCategoryInfo } from "../components/organisms/categories-bar/interface";
 import { useCart } from "../hooks/useCart";
 import { OrderServices } from "../services/order-services";
@@ -12,8 +12,12 @@ import { getUser } from "../utils/getUser";
 import { orderDetailsFromat } from "../utils/orderDetailsFromat";
 import { IOrderFormInputs } from "../components/molecules/order-form-modal/interface";
 import { filterProducts } from "../utils/filterProducts";
+import { useNavigate } from "react-router";
+import { jwtDecode } from "jwt-decode";
 
 const HomePage = () => {
+  const navigate = useNavigate();
+
   const categoryServices = new CategoryServices();
   const productServices = new ProductServices();
   const orderServices = new OrderServices();
@@ -23,6 +27,17 @@ const HomePage = () => {
 
   const [selectedCategory, setSelectedCategory] = useState<number>(0);
   const [searchTerm, setSearchTerm] = useState<string>("");
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const { exp } = jwtDecode(token);
+      if (exp && Date.now() >= exp * 1000) {
+        localStorage.removeItem("token");
+        navigate("/login");
+      }
+    }
+  }, [navigate]);
 
   const {
     cart,
