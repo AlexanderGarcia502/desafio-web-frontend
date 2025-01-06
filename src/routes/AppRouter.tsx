@@ -4,6 +4,10 @@ import ProtectedRoute from "./ProtectedRoute";
 import HomePage from "../pages/Home";
 import OperatorPage from "../pages/Operator";
 import ManagmentLayout from "../components/layouts/ManagmentLayout";
+import ProductsPage from "../pages/Products";
+import UsersPage from "../pages/UsersPage";
+import OrdersPage from "../pages/OrdersPage";
+import CategoriesPage from "../pages/CategoriesPage";
 
 const AppRouter = () => {
   return (
@@ -24,7 +28,10 @@ const AppRouter = () => {
           }
         >
           <Route index element={<OperatorPage />} />
-          <Route path="profile" element={<div>Profile</div>} />
+          <Route path="products" element={<ProductsPage />} />
+          <Route path="users" element={<UsersPage />} />
+          <Route path="orders" element={<OrdersPage />} />
+          <Route path="categories" element={<CategoriesPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -22,6 +22,7 @@ import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import { DrawerDimensions } from "../../../interfaces/enums/drawer";
 import { ExtendButtonBase } from "@mui/material";
+import { useNavigate, useNavigation } from "react-router";
 
 const drawerWidth = DrawerDimensions.WIDTH;
 
@@ -95,6 +96,7 @@ const PersistentDrawerLeft: React.FC<
   }
 > = ({ children, items }) => {
   const theme = useTheme();
+  const navigate = useNavigate();
   const [open, setOpen] = React.useState(true);
 
   const handleDrawerOpen = () => {
@@ -103,6 +105,10 @@ const PersistentDrawerLeft: React.FC<
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const handleListItemClick = (path: string) => {
+    navigate(path);
   };
 
   return (
@@ -156,7 +162,7 @@ const PersistentDrawerLeft: React.FC<
         <List style={{ background: "transparent" }}>
           {items.map((item) => (
             <ListItem key={item.path}>
-              <ListItemButton>
+              <ListItemButton onClick={() => handleListItemClick(item.path)}>
                 <ListItemIcon>{item.icon}</ListItemIcon>
                 <ListItemText secondary={item.title} />
               </ListItemButton>
