@@ -17,7 +17,6 @@ export default function ProductLargeCard({
   price,
   subtotal,
 }: IProductLargeCard) {
-  console.log("first: ", image);
   return (
     <ListItem alignItems="flex-start" sx={{ width: 500 }}>
       <ListItemAvatar>

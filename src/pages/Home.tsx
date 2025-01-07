@@ -111,7 +111,6 @@ const HomePage = () => {
   const handleSearchInputChange = (value: string) => {
     setSearchTerm(value);
   };
-console.log('first: ', cart)
   const onSendingOrder = ({ address }: IOrderFormInputs) => {
     const { idUsuarios, nombre_completo, telefono, correo_electronico } = user;
     const formatCartProducts = orderDetailsFromat(cart);

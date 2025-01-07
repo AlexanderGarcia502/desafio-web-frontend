@@ -15,10 +15,8 @@ const OrdersPage = () => {
 
   const orderListMapped = orderList.map((order: IOrderWithDetails) => {
     const { nombre_completo, direccion, total_orden, detallesOrden } = order;
-    console.log("first ", detallesOrden);
     return { nombre_completo, direccion, total_orden, detallesOrden };
   });
-  console.log("orderlist: ", orderList);
 
   return (
     <OrdersTemplate

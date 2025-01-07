@@ -62,8 +62,13 @@ export default function OrderDetailsModal({
             sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
           >
             {products.map((product) => {
-              const { productos_idProductos, precio, subtotal, cantidad, producto } = product;
-              console.log('producto: ', producto)
+              const {
+                productos_idProductos,
+                precio,
+                subtotal,
+                cantidad,
+                producto,
+              } = product;
               return (
                 <ProductLargeCard
                   key={productos_idProductos}
