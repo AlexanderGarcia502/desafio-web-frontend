@@ -9,8 +9,8 @@ interface ManagmentLayoutProps {
 }
 
 const ManagmentLayout: React.FC<ManagmentLayoutProps> = ({ allowedRoles }) => {
-  const items = useManagmentMenuList();
   useProtectedRoute(allowedRoles);
+  const items = useManagmentMenuList();
 
   return (
     <div>
