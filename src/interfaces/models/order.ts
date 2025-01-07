@@ -10,5 +10,5 @@ export interface IOrder {
   correo_electronico: string;
   fecha_entrega: Date;
   total_orden: number;
-  detallesOrden: Omit<IOrderDetail, "orden_idOrden">[];
+  detallesOrden: Omit<IOrderDetail, "orden_idOrden" | "producto" | "subtotal">[];
 }

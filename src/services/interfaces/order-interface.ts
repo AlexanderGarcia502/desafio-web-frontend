@@ -7,7 +7,7 @@ export interface IProductsDetails {
 }
 
 export interface ICreateOrderProps
-  extends Omit<IOrder, "total_orden" | "subtotal" > {}
+  extends Omit<IOrder, "total_orden" | "subtotal"> {}
 
 export interface IOrderWithDetails
   extends Pick<
