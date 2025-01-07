@@ -1,21 +1,30 @@
-import { Navigate } from "react-router";
+import { useNavigate } from "react-router";
 import { getInitialRouteByRole } from "../utils/getInitialRouteByRole";
 import { isAuthenticated } from "../utils/isAuthenticated";
+import { useEffect } from "react";
 
 export const useProtectedRoute = (allowedRoles?: string[]) => {
+  const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const user = JSON.parse(localStorage.getItem("user") || "{}");
 
-  if (!token) {
-    return <Navigate to="/login" replace />;
-  }
+  useEffect(() => {
+    validateToken();
+  }, []);
 
-  if (allowedRoles && !allowedRoles.includes(user.rol)) {
-    const { rol } = user;
-    return <Navigate to={getInitialRouteByRole(rol)} replace />;
-  }
-  if (!isAuthenticated()) {
-    return <Navigate to="/login" replace />;
-  }
+  const validateToken = () => {
+    if (!token) {
+      return navigate("/login", { replace: true });
+    }
+
+    if (allowedRoles && !allowedRoles.includes(user.rol)) {
+      const { rol } = user;
+      return navigate(getInitialRouteByRole(rol), { replace: true });
+    }
+    if (!isAuthenticated()) {
+      return navigate("/login", { replace: true });
+    }
+  };
+
   return { token, user };
 };
