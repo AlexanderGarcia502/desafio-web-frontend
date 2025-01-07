@@ -72,7 +72,7 @@ const HomePage = () => {
       telefono,
       correo_electronico,
       fecha_entrega,
-      productsDetails,
+      detallesOrden,
     }: ICreateOrderProps) => {
       return orderServices.create({
         usuarios_idUsuarios,
@@ -81,7 +81,7 @@ const HomePage = () => {
         telefono,
         correo_electronico,
         fecha_entrega,
-        productsDetails,
+        detallesOrden,
       });
     },
     onSuccess: (message) => {
@@ -111,7 +111,7 @@ const HomePage = () => {
   const handleSearchInputChange = (value: string) => {
     setSearchTerm(value);
   };
-
+console.log('first: ', cart)
   const onSendingOrder = ({ address }: IOrderFormInputs) => {
     const { idUsuarios, nombre_completo, telefono, correo_electronico } = user;
     const formatCartProducts = orderDetailsFromat(cart);
@@ -123,7 +123,7 @@ const HomePage = () => {
       telefono,
       correo_electronico,
       fecha_entrega: new Date(),
-      productsDetails: formatCartProducts,
+      detallesOrden: formatCartProducts,
     });
   };
 

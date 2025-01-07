@@ -48,10 +48,10 @@ const headCells: readonly HeadCell[] = [
     label: "Cliente",
   },
   {
-    id: "fecha_entrega",
+    id: "direccion",
     numeric: true,
     disablePadding: false,
-    label: "Fecha de Pedido",
+    label: "Dirección",
   },
   {
     id: "total_orden",
@@ -194,11 +194,11 @@ export default function OrdersTable({ rows, onSeeDetails }: IOrderTableProps) {
                     hover
                     role="checkbox"
                     tabIndex={-1}
-                    key={row.nombre_completo}
+                    key={index}
                     sx={{ cursor: "pointer" }}
                   >
                     <TableCell align="right">{row.nombre_completo}</TableCell>
-                    <TableCell align="right">{row.fecha_entrega}</TableCell>
+                    <TableCell align="right">{row.direccion}</TableCell>
                     <TableCell align="right">{row.total_orden}</TableCell>
                     <TableCell align="center">
                       <Button onClick={() => onSeeDetails(row)}>

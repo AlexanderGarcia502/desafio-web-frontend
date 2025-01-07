@@ -13,7 +13,7 @@ export class OrderServices implements IOrderServicesProps {
     telefono,
     correo_electronico,
     fecha_entrega,
-    productsDetails,
+    detallesOrden,
   }: ICreateOrderProps) {
     try {
       const { data } = await api.post("/order/", {
@@ -23,10 +23,18 @@ export class OrderServices implements IOrderServicesProps {
         telefono,
         correo_electronico,
         fecha_entrega,
-        productsDetails,
+        detallesOrden,
       });
       return data.data;
     } catch (error: any) {
+      throw new Error(handleError(error));
+    }
+  }
+  async getAll() {
+    try {
+      const { data } = await api.get("/order/getAll/");
+      return data.data;
+    } catch (error) {
       throw new Error(handleError(error));
     }
   }

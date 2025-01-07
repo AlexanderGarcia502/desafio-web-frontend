@@ -61,9 +61,20 @@ export default function OrderDetailsModal({
           <List
             sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
           >
-            {products.map((product) => (
-              <ProductLargeCard />
-            ))}
+            {products.map((product) => {
+              const { productos_idProductos, precio, subtotal, cantidad, producto } = product;
+              console.log('producto: ', producto)
+              return (
+                <ProductLargeCard
+                  key={productos_idProductos}
+                  name={producto.nombre}
+                  image={producto.foto}
+                  quantity={cantidad}
+                  price={precio}
+                  subtotal={subtotal}
+                />
+              );
+            })}
           </List>
         </Stack>
       </DialogContent>

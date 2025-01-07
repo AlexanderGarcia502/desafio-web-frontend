@@ -1,6 +1,4 @@
-import React from "react";
 import { TOrderRow } from "../../organisms/orders-table/interface";
-import { IOrderDetailsModalProps } from "../../organisms/order-details-modal/interface";
 
 export interface IOrderTemplateProps {
   rows: TOrderRow[];

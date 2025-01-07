@@ -49,7 +49,7 @@ const OrdersTemplate: React.FC<IOrderTemplateProps> = ({
         />
       </Stack>
       <OrderDetailsModal
-        products={selectedOrder?.orderDetails || []}
+        products={selectedOrder?.detallesOrden || []}
         open={open}
         onAccept={handleAccept}
         onClose={handleClose}

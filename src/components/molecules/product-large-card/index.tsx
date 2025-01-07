@@ -5,27 +5,51 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
+  Stack,
   Typography,
 } from "@mui/material";
+import { IProductLargeCard } from "./interface";
 
-export default function ProductLargeCard() {
+export default function ProductLargeCard({
+  name,
+  image,
+  quantity,
+  price,
+  subtotal,
+}: IProductLargeCard) {
+  console.log("first: ", image);
   return (
-    <ListItem alignItems="flex-start">
+    <ListItem alignItems="flex-start" sx={{ width: 500 }}>
       <ListItemAvatar>
-        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+        <Avatar alt="Remy Sharp" src={`data:image/png;base64,${image}`} />
       </ListItemAvatar>
       <ListItemText
-        primary="Brunch this weekend?"
+        primary={name}
         secondary={
           <React.Fragment>
-            <Typography
-              component="span"
-              variant="body2"
-              sx={{ color: "text.primary", display: "inline" }}
-            >
-              Ali Connors
-            </Typography>
-            {" — I'll be in your neighborhood doing errands this…"}
+            <Stack direction="column">
+              <Typography
+                component="span"
+                variant="body2"
+                sx={{ color: "text.primary", display: "inline" }}
+              >
+                Cantidad: {`${quantity}`}
+              </Typography>
+              <Typography
+                component="span"
+                variant="body2"
+                sx={{ color: "text.primary", display: "inline" }}
+              >
+                Precio: {`${price}`}
+              </Typography>
+              <Typography
+                component="span"
+                variant="body2"
+                sx={{ color: "text.primary", display: "inline" }}
+              >
+                Subtotal: {`${subtotal}`}
+              </Typography>
+            </Stack>
           </React.Fragment>
         }
       />

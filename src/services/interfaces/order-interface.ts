@@ -6,10 +6,20 @@ export interface IProductsDetails {
   precio: number;
 }
 
-export interface ICreateOrderProps extends Omit<IOrder, "total_orden"> {
-  productsDetails: IProductsDetails[];
-}
+export interface ICreateOrderProps
+  extends Omit<IOrder, "total_orden" | "subtotal" > {}
+
+export interface IOrderWithDetails
+  extends Pick<
+    IOrder,
+    | "idOrden"
+    | "nombre_completo"
+    | "direccion"
+    | "total_orden"
+    | "detallesOrden"
+  > {}
 
 export interface IOrderServicesProps {
-  create: (order: ICreateOrderProps) => void;
+  create: (order: Omit<ICreateOrderProps, "idOrden">) => void;
+  getAll: () => Promise<IOrderWithDetails[]>;
 }
