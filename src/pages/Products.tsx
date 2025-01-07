@@ -1,9 +1,15 @@
 import ProductsTemplate from "../components/templates/products";
+import { useGetProducts } from "../hooks/useGetProducts";
 
 const ProductsPage = () => {
+  const { products } = useGetProducts()
+
+  
+
   return (
     <ProductsTemplate
-      rows={[{ idProductos: 1, nombre: "Product 1", precio: 1, foto: "" }]}
+      rows={products}
+      onAdd={() => {}}
       onDelete={() => {}}
       onEdit={() => {}}
     />
