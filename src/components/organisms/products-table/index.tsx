@@ -62,6 +62,13 @@ const headCells: readonly HeadCell[] = [
     disablePadding: true,
     label: "Precio",
   },
+  {
+    id: "stock",
+
+    align: "right",
+    disablePadding: true,
+    label: "Stock",
+  },
 ];
 
 interface EnhancedTableProps {
@@ -205,6 +212,7 @@ export default function ProductsTable({
                     </TableCell>
                     <TableCell align="left">{row.nombre}</TableCell>
                     <TableCell align="right">{row.precio}</TableCell>
+                    <TableCell align="right">{row.stock}</TableCell>
                     <TableCell align="center">
                       <ButtonGroup>
                         <IconButton color="info" onClick={() => onEdit(row)}>

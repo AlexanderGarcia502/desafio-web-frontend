@@ -5,10 +5,11 @@ export type TProductRow = Pick<
   | "idProductos"
   | "nombre"
   | "precio"
-  | "foto"
   | "categoriaProductos_idCategoriaProductos"
   | "stock"
->;
+> & {
+  foto: string | undefined;
+};
 export interface IProductsTableProps {
   rows: TProductRow[];
   onDelete: (row: TProductRow) => void;

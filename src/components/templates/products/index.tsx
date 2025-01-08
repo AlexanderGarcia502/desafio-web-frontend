@@ -10,6 +10,7 @@ import DeleteDialog from "../../molecules/delete-dialog";
 
 const ProductsTemplate: React.FC<IProductTemplateProps> = ({
   rows,
+  categoriesOption,
   onDelete,
   onEdit,
   onAdd,
@@ -56,6 +57,7 @@ const ProductsTemplate: React.FC<IProductTemplateProps> = ({
     <>
       <ProductFormDialog
         initalData={selectedProduct || undefined}
+        categoriesOptions={categoriesOption}
         open={open}
         onClose={handleClose}
         onSave={handleSave}

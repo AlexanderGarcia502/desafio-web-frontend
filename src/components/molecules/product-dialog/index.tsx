@@ -12,7 +12,7 @@ const initialValues: TProductForm = {
   nombre: "",
   idProductos: 0,
   categoriaProductos_idCategoriaProductos: 0,
-  foto: "",
+  foto: undefined,
   precio: 0,
   stock: 0,
 };
@@ -22,6 +22,7 @@ export default function ProductFormDialog({
   onSave,
   open,
   initalData,
+  categoriesOptions = [],
 }: IProductFormDialogProps) {
   const [file, setFile] = useState<File | null>(null);
 
@@ -47,17 +48,16 @@ export default function ProductFormDialog({
       setFile(e.target.files[0]);
     }
   };
-
+  console.log("categoria opciones: ", categoriesOptions);
   const handleClose = () => {
     onClose();
     reset(initialValues);
   };
 
-  const handleSave = (data: TProductForm) => {
-    onSave(data);
+  const handleSave = (data: Omit<TProductForm, "foto"> & { foto: any }) => {
+    onSave({ ...data, foto: file ? file : data.foto });
     handleClose();
   };
-
   return (
     <Dialog
       open={open}
@@ -90,15 +90,30 @@ export default function ProductFormDialog({
             name="categoriaProductos_idCategoriaProductos"
             render={({ field }) => (
               <Autocomplete
+                {...field}
                 disablePortal
-                options={[]}
+                options={categoriesOptions}
+                getOptionLabel={(option) => option.label} // Muestra el 'nombre' en el campo de selección
+                isOptionEqualToValue={(option, value) =>
+                  option.idCategoriaProductos === value.idCategoriaProductos
+                } // Compara por 'id'
+                onChange={(_, newValue) => {
+                  field.onChange(
+                    newValue ? newValue.idCategoriaProductos : null
+                  ); // Guarda el 'id'
+                }}
                 fullWidth
                 renderInput={(params) => (
-                  <TextField {...params} label="Categoría" />
+                  <TextField {...params} label="Categorías" />
                 )}
+                value={
+                  categoriesOptions.find(
+                    (option) => option.idCategoriaProductos === field.value
+                  ) || null
+                } // Sincroniza el valor de 'field' con la opción seleccionada
               />
-            )} //TODO: Mirar como usar el Autocomplete, la implementacion esta incompleta
-          ></Controller>
+            )}
+          />
 
           <Controller
             control={control}
@@ -168,9 +183,9 @@ export default function ProductFormDialog({
               variant="contained"
               component="label"
               htmlFor="file-input"
-              size="medium" // Botón más pequeño
+              size="medium"
             >
-              Subir Foto
+              Subir Nueva Foto
             </Button>
           </Stack>
         </Stack>

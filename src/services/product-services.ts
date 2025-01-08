@@ -23,4 +23,15 @@ export class ProductServices {
       throw new Error("Failed to fetch products");
     }
   }
+  async update(formData: any) {
+    try {
+      const { data } = await api.put("/product/", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      return data.data;
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      throw new Error("Failed to fetch products");
+    }
+  }
 }
