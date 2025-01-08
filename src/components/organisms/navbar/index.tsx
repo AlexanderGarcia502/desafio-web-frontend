@@ -5,48 +5,58 @@ import {
   Toolbar,
   IconButton,
   Box,
-  Drawer,
-  List,
   ListItemIcon,
-  ListItemText,
-  Divider,
-  ListItemButton,
   useMediaQuery,
+  Menu,
+  MenuItem,
+  Typography,
 } from "@mui/material";
 import {
-  Menu,
+  Menu as MenuIcon,
   AccountCircle,
   History,
   ShoppingCart,
-  Close,
+  Logout,
 } from "@mui/icons-material";
 import { useTheme } from "@mui/material/styles";
 import Logo from "../../atoms/logo";
 import SearchInput from "../../atoms/inputs/search-input";
-import IconButtonWithText from "../../molecules/Icon-button-with-text";
 import { useCart } from "../../../hooks/useCart";
+import { getUser } from "../../../utils/getUser";
+import logout from "../../../utils/logout";
 
 interface INavbarProps {
   children?: React.ReactNode;
   onChangeSearchInput: (value: string) => void;
   onClickCartButton: () => void;
+  onClickMenuButton: () => void;
 }
 
 export default function Navbar({
   children,
   onChangeSearchInput,
   onClickCartButton,
+  onClickMenuButton,
 }: INavbarProps) {
   const theme = useTheme();
 
-  const [openMenuDrawer, setOpenMenuDrawer] = useState(false);
+  const { nombre_completo } = getUser();
+
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
 
   const { cart, getTotal } = useCart();
 
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const toggleMenuDrawer = () => {
-    setOpenMenuDrawer(!openMenuDrawer);
+  const firstName = nombre_completo.split(" ")[0];
+
+  const handleAccountDrawerOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleAccountDrawerClose = () => {
+    setAnchorEl(null);
   };
 
   return (
@@ -65,10 +75,12 @@ export default function Navbar({
             <IconButton
               edge="start"
               color="inherit"
-              onClick={toggleMenuDrawer}
+              onClick={() => {
+                onClickMenuButton();
+              }}
               sx={{ display: { xs: "block", md: "none" } }}
             >
-              <Menu />
+              <MenuIcon />
             </IconButton>
 
             <Logo
@@ -86,69 +98,87 @@ export default function Navbar({
                 marginLeft: 2,
               }}
             >
+              <Box
+                onClick={handleAccountDrawerOpen}
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginLeft: 2,
+                  cursor: "pointer",
+                }}
+              >
+                <IconButton color="inherit">
+                  <AccountCircle />
+                </IconButton>
+                <Typography
+                  color={theme.palette.text.secondary}
+                  variant="body1"
+                >
+                  {firstName}
+                </Typography>
+              </Box>
+              <Menu
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleAccountDrawerClose}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+              >
+                <MenuItem onClick={logout}>
+                  <ListItemIcon>
+                    <Logout fontSize="small" />
+                  </ListItemIcon>
+                  <Typography variant="inherit">Logout</Typography>
+                </MenuItem>
+              </Menu>
+
+              <Box
+                onClick={() => {}}
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginLeft: 2,
+                  cursor: "pointer",
+                }}
+              >
+                <IconButton color="inherit">
+                  <History />
+                </IconButton>
+                <Typography
+                  color={theme.palette.text.secondary}
+                  variant="body1"
+                >
+                  Historial
+                </Typography>
+              </Box>
+
               {children}
             </Box>
-            <IconButtonWithText
+            <Box
               onClick={onClickCartButton}
-              icon={<ShoppingCart />}
-              text={isMobile ? `${cart.length}` : `Q${getTotal()}`}
-              variantText="body1"
               sx={{
                 display: "flex",
                 alignItems: "center",
                 marginLeft: 2,
                 cursor: "pointer",
               }}
-            />
+            >
+              <IconButton color="inherit">
+                <ShoppingCart />
+              </IconButton>
+              <Typography color={theme.palette.text.secondary} variant="body1">
+                {isMobile ? `${cart.length}` : `Q${getTotal()}`}
+              </Typography>
+            </Box>
           </Box>
         </Toolbar>
       </AppBar>
-
-      <Drawer anchor="left" open={openMenuDrawer} onClose={toggleMenuDrawer}>
-        <Box
-          sx={{ width: 250 }}
-          role="presentation"
-          onClick={toggleMenuDrawer}
-          onKeyDown={toggleMenuDrawer}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              p: 1,
-            }}
-          >
-            <Logo
-              sx={{
-                display: { xs: "block", md: "none" },
-                color: "primary.main",
-                marginRight: 2,
-              }}
-            />
-            <IconButton onClick={toggleMenuDrawer}>
-              <Close />
-            </IconButton>
-          </Box>
-          <Divider />
-          <List component="nav">
-            <ListItemButton>
-              <ListItemIcon>
-                <AccountCircle />
-              </ListItemIcon>
-              <ListItemText primary="Mi cuenta" />
-            </ListItemButton>
-            <ListItemButton>
-              <ListItemIcon>
-                <History />
-              </ListItemIcon>
-              <ListItemText primary="Historial" />
-            </ListItemButton>
-          </List>
-        </Box>
-      </Drawer>
     </>
   );
 }
-
-Navbar.item = IconButtonWithText;

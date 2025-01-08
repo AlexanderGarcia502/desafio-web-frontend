@@ -21,7 +21,9 @@ const ProductsTemplate: React.FC<IProductTemplateProps> = ({
   const handleOpen = (product: TProductRow) => {
     setSelectedProduct(product);
     setOpen(true);
+    console.log("selected: ", product);
   };
+
   const handleClose = () => {
     setSelectedProduct(null);
     setOpen(false);

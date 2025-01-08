@@ -1,11 +1,11 @@
 import Navbar from "../../organisms/navbar";
 import CategoriesBar from "../../organisms/categories-bar";
-import { AccountCircle, History } from "@mui/icons-material";
 import ProductList from "../../organisms/products-list";
 import { IHomeTemplateChildrenProps, IHomeTemplateProps } from "./interface";
 import { Stack } from "@mui/material";
 import { useState } from "react";
 import { CartDrawer } from "../../organisms/cart-drawer";
+import MenuDrawer from "../../organisms/menu-drawer";
 
 const HomeTemplate: React.FC<IHomeTemplateProps> &
   IHomeTemplateChildrenProps = ({
@@ -17,34 +17,22 @@ const HomeTemplate: React.FC<IHomeTemplateProps> &
   onSendOrder,
 }) => {
   const [openCartDrawer, setOpenCartDrawer] = useState(false);
+  const [openMenuDrawer, setOpenMenuDrawer] = useState(false);
+
+  const toggleMenuDrawer = () => {
+    setOpenMenuDrawer(!openMenuDrawer);
+  };
 
   return (
     <>
       <Navbar
+        onClickMenuButton={() => setOpenMenuDrawer(true)}
         onChangeSearchInput={onChangeSearchInput}
         onClickCartButton={() => setOpenCartDrawer(true)}
-      >
-        <Navbar.item
-          text="Mi cuenta"
-          icon={<AccountCircle />}
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            marginLeft: 2,
-            cursor: "pointer",
-          }}
-        />
-        <Navbar.item
-          text="Historial"
-          icon={<History />}
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            marginLeft: 2,
-            cursor: "pointer",
-          }}
-        />
-      </Navbar>
+      />
+
+      <MenuDrawer open={openMenuDrawer} toggleMenuDrawer={toggleMenuDrawer} />
+
       <CartDrawer
         totalPurchases={totalPurchases}
         cartList={cartList}

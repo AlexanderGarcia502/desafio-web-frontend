@@ -21,8 +21,10 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import { DrawerDimensions } from "../../../interfaces/enums/drawer";
-import { ExtendButtonBase } from "@mui/material";
+import { ExtendButtonBase, Stack } from "@mui/material";
 import { useNavigate, useNavigation } from "react-router";
+import { Logout } from "@mui/icons-material";
+import logout from "../../../utils/logout";
 
 const drawerWidth = DrawerDimensions.WIDTH;
 
@@ -130,9 +132,26 @@ const PersistentDrawerLeft: React.FC<
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Mi Tiendita
-          </Typography>
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            justifyItems="center"
+            width="100%"
+          >
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+            >
+              Mi Tiendita
+            </Typography>
+            <IconButton color={"primary"} onClick={logout}>
+              <Logout />
+            </IconButton>
+          </Stack>
         </Toolbar>
       </AppBar>
       <Drawer
