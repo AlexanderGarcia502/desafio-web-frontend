@@ -28,7 +28,7 @@ export default function ProductList({
         flexWrap="wrap"
         gap={2}
         padding={2}
-        justifyContent={"flex-start"}
+        justifyContent={'center'}
       >
         {currentItems.map((product) => {
           const { idProductos, nombre, precio, foto, stock } = product;

@@ -5,6 +5,7 @@ import { ICategoriesBarProps } from "../../organisms/categories-bar/interface";
 import { ICartActions } from "../../organisms/cart-drawer/interface";
 import { IProductItem } from "../../molecules/product-item/interface";
 import { IOrderFormInputs } from "../../molecules/order-form-modal/interface";
+import { createData } from "../../organisms/historyDrawer/HistoryTable";
 
 export type TCategoryInfo = Pick<ICategory, "idCategoriaProductos" | "nombre">;
 export interface IHomeTemplateProps {
@@ -15,6 +16,7 @@ export interface IHomeTemplateProps {
   cartList: IProductItem[];
   totalPurchases: number;
   children?: React.ReactNode;
+  rows: ReturnType<typeof createData>[];
 }
 export interface IHomeTemplateChildrenProps {
   ProductList: React.FC<IProductsListProps>;

@@ -30,6 +30,7 @@ interface INavbarProps {
   onChangeSearchInput: (value: string) => void;
   onClickCartButton: () => void;
   onClickMenuButton: () => void;
+  onHistoryAction: () => void;
 }
 
 export default function Navbar({
@@ -37,6 +38,7 @@ export default function Navbar({
   onChangeSearchInput,
   onClickCartButton,
   onClickMenuButton,
+  onHistoryAction,
 }: INavbarProps) {
   const theme = useTheme();
 
@@ -139,7 +141,7 @@ export default function Navbar({
               </Menu>
 
               <Box
-                onClick={() => {}}
+                onClick={onHistoryAction}
                 sx={{
                   display: "flex",
                   alignItems: "center",

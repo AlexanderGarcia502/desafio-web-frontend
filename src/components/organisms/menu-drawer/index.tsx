@@ -25,9 +25,10 @@ import logout from "../../../utils/logout";
 interface IMenuDrawerProps {
   open: boolean;
   toggleMenuDrawer: () => void;
+  onHistoryAction: () => void;
 }
 
-const MenuDrawer = ({ open, toggleMenuDrawer }: IMenuDrawerProps) => {
+const MenuDrawer = ({ open, toggleMenuDrawer, onHistoryAction }: IMenuDrawerProps) => {
   const [openSubmenu, setOpenSubmenu] = useState(true);
 
   const { nombre_completo } = getUser();
@@ -78,7 +79,7 @@ const MenuDrawer = ({ open, toggleMenuDrawer }: IMenuDrawerProps) => {
               </ListItemButton>
             </List>
           </Collapse>
-          <ListItemButton>
+          <ListItemButton onClick={onHistoryAction}>
             <ListItemIcon>
               <History />
             </ListItemIcon>

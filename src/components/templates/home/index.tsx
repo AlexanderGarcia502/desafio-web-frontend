@@ -2,10 +2,11 @@ import Navbar from "../../organisms/navbar";
 import CategoriesBar from "../../organisms/categories-bar";
 import ProductList from "../../organisms/products-list";
 import { IHomeTemplateChildrenProps, IHomeTemplateProps } from "./interface";
-import { Stack } from "@mui/material";
+import { Modal, Stack } from "@mui/material";
 import { useState } from "react";
 import { CartDrawer } from "../../organisms/cart-drawer";
 import MenuDrawer from "../../organisms/menu-drawer";
+import CollapsibleTable from "../../organisms/historyDrawer";
 
 const HomeTemplate: React.FC<IHomeTemplateProps> &
   IHomeTemplateChildrenProps = ({
@@ -15,9 +16,11 @@ const HomeTemplate: React.FC<IHomeTemplateProps> &
   cartActions,
   totalPurchases,
   onSendOrder,
+  rows,
 }) => {
   const [openCartDrawer, setOpenCartDrawer] = useState(false);
   const [openMenuDrawer, setOpenMenuDrawer] = useState(false);
+  const [openHistoryDrawer, setOpenHistoryDrawer] = useState(false);
 
   const toggleMenuDrawer = () => {
     setOpenMenuDrawer(!openMenuDrawer);
@@ -26,12 +29,26 @@ const HomeTemplate: React.FC<IHomeTemplateProps> &
   return (
     <>
       <Navbar
+        onHistoryAction={() => setOpenHistoryDrawer(true)}
         onClickMenuButton={() => setOpenMenuDrawer(true)}
         onChangeSearchInput={onChangeSearchInput}
         onClickCartButton={() => setOpenCartDrawer(true)}
       />
-
-      <MenuDrawer open={openMenuDrawer} toggleMenuDrawer={toggleMenuDrawer} />
+      <Modal
+        open={openHistoryDrawer}
+        onClose={() => setOpenHistoryDrawer(false)}
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      >
+        <CollapsibleTable
+          rows={rows}
+          onClose={() => setOpenHistoryDrawer(false)}
+        />
+      </Modal>
+      <MenuDrawer
+        open={openMenuDrawer}
+        toggleMenuDrawer={toggleMenuDrawer}
+        onHistoryAction={() => setOpenHistoryDrawer(true)}
+      />
 
       <CartDrawer
         totalPurchases={totalPurchases}

@@ -14,6 +14,10 @@ import { IOrderFormInputs } from "../components/molecules/order-form-modal/inter
 import { filterProducts } from "../utils/filterProducts";
 import { useNavigate } from "react-router";
 import { jwtDecode } from "jwt-decode";
+import { createData } from "../components/organisms/historyDrawer/HistoryTable";
+import { IOrder } from "../interfaces/models/order";
+import { IOrderDetail } from "../interfaces/models/orderDetail";
+import formatVisibleRowsHistory from "../utils/formatVisibleRowsHistory";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -52,6 +56,14 @@ const HomePage = () => {
     queryKey: ["categories"],
     queryFn: async () => {
       const response = await categoryServices.getAllCategories();
+      return response;
+    },
+  });
+
+  const { data: history = [] } = useQuery({
+    queryKey: ["history"],
+    queryFn: async () => {
+      const response = await orderServices.getHistory(user.idUsuarios);
       return response;
     },
   });
@@ -126,6 +138,9 @@ const HomePage = () => {
       detallesOrden: formatCartProducts,
     });
   };
+
+  const historyUser = formatVisibleRowsHistory(history);
+
   return (
     <HomeTemplate
       cartList={cart}
@@ -134,6 +149,7 @@ const HomePage = () => {
       onClickCategory={() => {}}
       onChangeSearchInput={handleSearchInputChange}
       onSendOrder={onSendingOrder}
+      rows={historyUser}
     >
       <HomeTemplate.CategoryList
         categories={allCategories}

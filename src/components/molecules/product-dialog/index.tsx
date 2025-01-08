@@ -48,7 +48,6 @@ export default function ProductFormDialog({
       setFile(e.target.files[0]);
     }
   };
-  console.log("categoria opciones: ", categoriesOptions);
   const handleClose = () => {
     onClose();
     reset(initialValues);

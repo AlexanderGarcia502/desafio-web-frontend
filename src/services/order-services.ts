@@ -52,4 +52,15 @@ export class OrderServices implements IOrderServicesProps {
       throw new Error(handleError(error));
     }
   }
+  async getHistory(idUsuario: number) {
+    try {
+      const { data } = await api.get("/order/getHistoryUser", {
+        params: { idUsuario },
+      });
+      return data.data;
+    } catch (error) {
+      console.log('ERRROR: ', error)
+      throw new Error(handleError(error));
+    }
+  }
 }
