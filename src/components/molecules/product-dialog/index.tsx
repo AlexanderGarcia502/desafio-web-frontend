@@ -5,8 +5,8 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { IProductFormDialogProps, TProductForm } from "./interface";
 import { Controller, useForm } from "react-hook-form";
-import { Autocomplete, Stack, TextField } from "@mui/material";
-import { useEffect } from "react";
+import { Autocomplete, Stack, TextField, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
 
 const initialValues: TProductForm = {
   nombre: "",
@@ -23,6 +23,8 @@ export default function ProductFormDialog({
   open,
   initalData,
 }: IProductFormDialogProps) {
+  const [file, setFile] = useState<File | null>(null);
+
   const {
     control,
     handleSubmit,
@@ -33,10 +35,18 @@ export default function ProductFormDialog({
   useEffect(() => {
     if (!initalData) {
       reset(initialValues);
+      setFile(null);
       return;
     }
     reset(initalData);
+    setFile(null);
   }, [JSON.stringify(initalData || {})]);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.[0]) {
+      setFile(e.target.files[0]);
+    }
+  };
 
   const handleClose = () => {
     onClose();
@@ -130,19 +140,39 @@ export default function ProductFormDialog({
               />
             )}
           ></Controller>
-          <Controller
-            control={control}
-            name="foto"
-            render={({ field }) => (
-              <TextField
-                {...field}
-                fullWidth
-                label="Stock"
-                type="file"
-                slotProps={{ inputLabel: { shrink: true } }}
-              />
+          <Stack spacing={1}>
+            <input
+              type="file"
+              id="file-input"
+              style={{ display: "none" }}
+              onChange={handleFileChange}
+            />
+            {file && (
+              <Stack direction="column" spacing={1} justifyContent="center">
+                <img
+                  src={URL.createObjectURL(file)}
+                  alt="Vista previa"
+                  style={{
+                    width: 100,
+                    height: 100,
+                    objectFit: "cover",
+                    borderRadius: "4px",
+                  }}
+                />
+                <Typography variant="body1" color="success" fontWeight="bold">
+                  {file.name}
+                </Typography>
+              </Stack>
             )}
-          ></Controller>
+            <Button
+              variant="contained"
+              component="label"
+              htmlFor="file-input"
+              size="medium" // Botón más pequeño
+            >
+              Subir Foto
+            </Button>
+          </Stack>
         </Stack>
       </DialogContent>
       <DialogActions>

@@ -43,7 +43,7 @@ interface HeadCell {
 const headCells: readonly HeadCell[] = [
   {
     id: "nombre_completo",
-    numeric: false,
+    numeric: true,
     disablePadding: true,
     label: "Cliente",
   },
@@ -52,6 +52,12 @@ const headCells: readonly HeadCell[] = [
     numeric: true,
     disablePadding: false,
     label: "Dirección",
+  },
+  {
+    id: "estado",
+    numeric: true,
+    disablePadding: false,
+    label: "Estado",
   },
   {
     id: "total_orden",
@@ -169,7 +175,7 @@ export default function OrdersTable({ rows, onSeeDetails }: IOrderTableProps) {
       [...rows]
         .sort(getComparator(order, orderBy))
         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
-    [order, orderBy, page, rowsPerPage]
+    [order, orderBy, page, rowsPerPage, rows]
   );
 
   return (
@@ -199,6 +205,7 @@ export default function OrdersTable({ rows, onSeeDetails }: IOrderTableProps) {
                   >
                     <TableCell align="right">{row.nombre_completo}</TableCell>
                     <TableCell align="right">{row.direccion}</TableCell>
+                    <TableCell align="right">{row.estado}</TableCell>
                     <TableCell align="right">{row.total_orden}</TableCell>
                     <TableCell align="center">
                       <Button onClick={() => onSeeDetails(row)}>

@@ -89,6 +89,7 @@ const HomePage = () => {
       clearCart();
     },
     onError: (err) => {
+      console.log("ERR: ", err);
       setOpenNotification(err.message, "error");
     },
   });
@@ -121,11 +122,10 @@ const HomePage = () => {
       direccion: address,
       telefono,
       correo_electronico,
-      fecha_entrega: new Date(),
+      fecha_entrega: null,
       detallesOrden: formatCartProducts,
     });
   };
-
   return (
     <HomeTemplate
       cartList={cart}

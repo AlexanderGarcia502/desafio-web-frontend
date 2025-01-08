@@ -8,7 +8,10 @@ export interface IOrder {
   direccion: string;
   telefono: string;
   correo_electronico: string;
-  fecha_entrega: Date;
+  fecha_entrega: Date | null | string;
   total_orden: number;
-  detallesOrden: Omit<IOrderDetail, "orden_idOrden" | "producto" | "subtotal">[];
+  detallesOrden: Omit<
+    IOrderDetail,
+    "orden_idOrden" | "producto" | "subtotal"
+  >[];
 }

@@ -17,9 +17,16 @@ export interface IOrderWithDetails
     | "direccion"
     | "total_orden"
     | "detallesOrden"
-  > {}
+  > {
+  estado: string;
+}
 
 export interface IOrderServicesProps {
   create: (order: Omit<ICreateOrderProps, "idOrden">) => void;
   getAll: () => Promise<IOrderWithDetails[]>;
+}
+
+export interface IDecideOrderProps
+  extends Pick<IOrder, "idOrden" | "fecha_entrega"> {
+  estado: string;
 }

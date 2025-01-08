@@ -7,7 +7,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
 import { IOrderDetailsModalProps } from "./interface";
-import { List, Stack, TextField } from "@mui/material";
+import { List, Stack, TextField, Typography } from "@mui/material";
 import ProductLargeCard from "../../molecules/product-large-card";
 import { NotificationContext } from "../../../context/notification";
 
@@ -53,8 +53,9 @@ export default function OrderDetailsModal({
       <DialogTitle>{"Productos de la orden"}</DialogTitle>
       <DialogContent>
         <Stack rowGap={2} marginTop={2}>
+          <Typography fontWeight="bold">Fecha de Entrega</Typography>
           <TextField
-            label="Fecha de Entrega"
+            label=""
             type="date"
             onChange={(e) => setDate(e.target.value)}
           />
@@ -84,10 +85,10 @@ export default function OrderDetailsModal({
         </Stack>
       </DialogContent>
       <DialogActions>
-        <Button color="error" onClick={_onAccept}>
+        <Button color="error" onClick={_onReject}>
           Rechazar
         </Button>
-        <Button onClick={_onReject}>Aceptar</Button>
+        <Button onClick={_onAccept}>Aceptar</Button>
       </DialogActions>
     </Dialog>
   );
